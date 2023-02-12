@@ -4,6 +4,7 @@ const http = require('http');
 const server = http.createServer(app);
 const logger = require('morgan');
 const cors = require('cors');
+const passport = require('passport');
 
 const port = process.env.PORT || 3000;
 
@@ -18,6 +19,10 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use(cors());
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./config/passport')(passport);
 
 app.disable('x-powered-by');
 
@@ -29,7 +34,7 @@ app.set('port', port);
 userRoutes(app);
 
 // La IP puede cambiar, hay que estar verificando si la IP si es que truena el NodeJS.
-server.listen(3000, '192.168.1.70' || 'localhost', function() {
+server.listen(3000, '192.168.1.104' || 'localhost', function() {
     console.log('Aplicación de NodeJS ' + port + ' Iniciada...')
 });
 
