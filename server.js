@@ -7,6 +7,11 @@ const cors = require('cors');
 
 const port = process.env.PORT || 3000;
 
+/*
+    IMPORTAR RUTAS
+*/
+const userRoutes = require('./routes/userRoutes');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -17,6 +22,11 @@ app.use(cors());
 app.disable('x-powered-by');
 
 app.set('port', port);
+
+/*
+    LLAMADO DE LAS RUTAS
+*/
+userRoutes(app);
 
 // La IP puede cambiar, hay que estar verificando si la IP si es que truena el NodeJS.
 server.listen(3000, '192.168.1.70' || 'localhost', function() {
