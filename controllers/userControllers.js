@@ -107,7 +107,7 @@ module.exports = {
 
       user.id = `${data}`;
       const token = jwt.sign({id: user.id, email: user.email}, keys.secretOrKey, {});
-      user.session_token = token;
+      user.session_token = `JWT ${token}`;
 
 
       return res.status(201).json({
